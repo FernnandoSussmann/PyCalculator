@@ -1,34 +1,23 @@
 from Operation import *
 
-def trataEntrada(tipo,texto):
+def trata_entrada(tipo,texto):
     return tipo(raw_input(texto))
 
-def atribuiValores(operacao):
-    operacao.setOperationType(trataEntrada(int,"Digite 1 para soma, 2 subtracao, 3 multiplicacao, 4 divisao, 5 potencia, 6 raiz, 7 derivada simples, 8 integral simples\n"))
-    operacao.setValue1(trataEntrada(float,"Primeiro valor: "))
-    operacao.setValue2(trataEntrada(float,"Segundo valor: "))
+def atribui_valores(operacao):
+    operacao.set_operation_type(trata_entrada(int,"Digite 1 para soma, 2 subtracao, 3 multiplicacao, 4 divisao, 5 potencia, 6 raiz, 7 derivada simples, 8 integral simples\n"))
+    operacao.set_value1(trata_entrada(float,"Primeiro valor: "))
+    operacao.set_value2(trata_entrada(float,"Segundo valor: "))
 
-def selecionaCalculo(operacao):
-    if (operacao.getOperationType() == 1):
-      operacao.setResult(operacao.sumValues())
-    elif (operacao.getOperationType() == 2):
-      operacao.setResult(operacao.subtractValues())
-    elif (operacao.getOperationType() == 3):
-      operacao.setResult(operacao.multiplyValues())
-    elif (operacao.getOperationType() == 4):
-      operacao.setResult(operacao.divideValues())
-    elif (operacao.getOperationType() == 5):
-      operacao.setResult(operacao.powerOfValue1byValue2())
-    elif (operacao.getOperationType() == 6):
-      operacao.setResult(operacao.rootOfValue1byValue2())
-    elif (operacao.getOperationType() == 7):
-      operacao.setResult(operacao.derivativeOfValue1byValue2())
-    elif (operacao.getOperationType() == 8):
-      operacao.setResult(operacao.integralOfValue1byValue2()) 
+def seleciona_calculo(operacao):
+    operacoes = [operacao.sum_values(), operacao.subtract_values(), operacao.multiply_values(), operacao.divide_values(), 
+                 operacao.power_of_value1_by_value2(), operacao.root_of_value1_by_value2(), operacao.derivative_of_value1_by_value2(), 
+                 operacao.integral_of_value1_by_value2()]
+    operacao.set_result(operacoes[operacao.get_operation_type() - 1])
 
-def executaOperacao(operacao):
-    atribuiValores(operacao)
-    selecionaCalculo(operacao)
+def executa_operacao(operacao):
+    atribui_valores(operacao)
+    seleciona_calculo(operacao)
+    operacao.adjust_value2()
     print(operacao)
 
 def main():
@@ -37,7 +26,7 @@ def main():
 
   while sair != "n":
       try:
-          executaOperacao(operacao)
+          executa_operacao(operacao)
       except ValueError:
           print("Valores invalidos")
       except OverflowError:
@@ -45,6 +34,6 @@ def main():
       except ZeroDivisionError:
           print("Valor 2 resultou em uma divisao em 0, portanto nao sera calculado")
       finally:
-          sair = trataEntrada(str,"Deseja fazer outra operacao? (n para sair)\n")
+          sair = trata_entrada(str,"Deseja fazer outra operacao? (n para sair)\n")
 
 main()

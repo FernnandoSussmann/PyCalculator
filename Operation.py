@@ -1,66 +1,70 @@
 class Operation(object):
-  def __init__(self,operationType, value1, value2, result):
-    self.operationType = operationType
+  def __init__(self,operation_type, value1, value2, result):
+    self.operation_type = operation_type
     self.value1 = value1
     self.value2 = value2
     self.result = result
 
-  def getOperationType(self):
-    return self.operationType
+  def get_operation_type(self):
+    return self.operation_type
 
-  def getValue1(self):
+  def get_value1(self):
     return self.value1
 
-  def getValue2(self):
+  def get_value2(self):
     return self.value2
 
-  def getResult(self):
+  def get_result(self):
     return self.result
 
-  def setOperationType(self, operationType):
-    self.operationType = operationType
+  def set_operation_type(self, operation_type):
+    self.operation_type = operation_type
 
-  def setValue1(self, value1):
+  def set_value1(self, value1):
     self.value1 = value1
 
-  def setValue2(self, value2):
+  def set_value2(self, value2):
     self.value2 = value2
 
-  def setResult(self, result):
+  def set_result(self, result):
     self.result = result
 
-  def sumValues(self):
-    return self.getValue1() + self.getValue2()
+  def sum_values(self):
+    return self.get_value1() + self.get_value2()
 
-  def subtractValues(self):
-    return self.getValue1() - self.getValue2()  
+  def subtract_values(self):
+    return self.get_value1() - self.get_value2()  
 
-  def multiplyValues(self):
-    return self.getValue1() * self.getValue2() 
+  def multiply_values(self):
+    return self.get_value1() * self.get_value2() 
 
-  def divideValues(self):
-    return self.getValue1() / self.getValue2()
+  def divide_values(self):
+    return self.get_value1() / self.get_value2()
 
-  def powerOfValue1byValue2(self):
-    return self.getValue1() ** self.getValue2()
+  def power_of_value1_by_value2(self):
+    return self.get_value1() ** self.get_value2()
 
-  def rootOfValue1byValue2(self):
-    return self.getValue1() ** (1/self.getValue2())
+  def root_of_value1_by_value2(self):
+    return self.get_value1() ** (1/self.get_value2())
 
-  def derivativeOfValue1byValue2(self):
-    result = self.getValue1() * self.getValue2()
-    self.setValue2(self.getValue2() -1)
+  def derivative_of_value1_by_value2(self):
+    result = self.get_value1() * self.get_value2()
     return result
 
-  def integralOfValue1byValue2(self):
-    self.setValue2(self.getValue2() + 1)
-    result = self.getValue1() / self.getValue2()
+  def integral_of_value1_by_value2(self):
+    result = self.get_value1() / (self.get_value2() + 1)
     return result
+
+  def adjust_value2(self):
+    if (self.get_operation_type() == 7):
+      self.set_value2(self.get_value2() - 1)
+    elif (self.get_operation_type() == 8):
+      self.set_value2(self.get_value2() + 1)
 
   def __str__(self):
-    if self.getOperationType() in range(1,7):
-      return str(self.getResult())
-    elif self.getOperationType() in (7,8):
-      return "\n" + str(self.getResult()) + "x^" + str(self.getValue2()) + "\n"
+    if self.get_operation_type() in range(1,7):
+      return str(self.get_result())
+    elif self.get_operation_type() in (7,8):
+      return "\n" + str(self.get_result()) + "x^" + str(self.get_value2()) + "\n"
     else:
       return "Invalid Operation"
